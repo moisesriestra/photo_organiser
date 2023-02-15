@@ -4,10 +4,12 @@ import click
 
 
 @click.command()
-@click.option('--input_path', help='Number of greetings.')
-@click.option('--output_path', help='The person to greet.')
-def main(input_path: str, output_path: str) -> None:
-    print('Entra por aquí')
+@click.option('--input_path', required=True, help='Directory that has the original images.', type=click.Path(exists=True, file_okay=False, resolve_path=True))
+@click.option('--output_path', required=True, help='Directory where the result of the process will be stored.', type=click.Path(exists=True, file_okay=False, resolve_path=True))
+@click.option('--remove/--no-remove', default=False, help='Set if you want to delete original images or not.')
+def main(input_path: str, output_path: str, remove:bool) -> None:
+    print('Input path: {}'.format(input_path))
+    print('Input path: {}'.format(output_path))
 
 
 if __name__ == "__main__":
