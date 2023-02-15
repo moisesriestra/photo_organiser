@@ -1,2 +1,5 @@
-# photo_organiser
-Simple tool to organise your photos based on metadata information
+# Photo Organiser
+
+This project aimed to be a personal tool for picture self-organization in order to avoid duplicate images.
+
+
