@@ -1,6 +1,7 @@
 """Console script for photo_organiser."""
 import sys
 import click
+from photo_organiser.photo_organiser import PhotoOrganiser
 
 
 @click.command()
@@ -10,7 +11,8 @@ import click
 def main(input_path: str, output_path: str, remove:bool) -> None:
     print('Input path: {}'.format(input_path))
     print('Input path: {}'.format(output_path))
-
+    organiser = PhotoOrganiser(input_path, output_path)
+    organiser.process()
 
 if __name__ == "__main__":
-    main()  # pragma: no cover
+    main()  
