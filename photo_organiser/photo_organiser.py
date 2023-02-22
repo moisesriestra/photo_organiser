@@ -1,4 +1,6 @@
 from photo_organiser.services.file_service import FileService
+from PIL import Image, ImageChops
+import numpy as np
 
 class PhotoOrganiser:
 
@@ -11,4 +13,24 @@ class PhotoOrganiser:
 
         # Get the list pf paths to process
         list_of_images = self.fs.get_list_filenames(self._id)
-        print(list_of_images)
+
+        # Process the list of images
+        valid_imgs = list()
+        not_valid_imags = list()
+        for i, img_file in enumerate(list_of_images):
+            if img_file in not_valid_imags:
+                # TODO Save to other folder and continue with next image
+                continue
+            # This is a valid image to check
+            new_img = Image.open(img_file).convert('RGB')
+            valid_imgs.append(img_file)
+            # TODO Save to common folder
+            # Loop over the rest of images
+            for elem in range(i + 1,len(list_of_images)):
+                to_comp_img = Image.open(list_of_images[elem]).convert('RGB')
+                diff = np.sum(np.array(ImageChops.difference(new_img, to_comp_img).getdata()))
+                # If images are equal, append to not_valid list
+                if diff == 0:
+                    print('Images are equal')
+                    not_valid_imags.append(list_of_images[elem])
+        
