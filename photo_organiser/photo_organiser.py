@@ -18,17 +18,19 @@ class PhotoOrganiser:
         valid_imgs = list()
         not_valid_imags = list()
         for i, img_file in enumerate(list_of_images):
-            print(valid_imgs)
-            print(not_valid_imags)
             if img_file in not_valid_imags:
-                # Move to other folder and continue with next image
+                # TODO Save to other folder and continue with next image
                 continue
+            # This is a valid image to check
             new_img = Image.open(img_file).convert('RGB')
             valid_imgs.append(img_file)
+            # TODO Save to common folder
+            # Loop over the rest of images
             for elem in range(i + 1,len(list_of_images)):
                 to_comp_img = Image.open(list_of_images[elem]).convert('RGB')
                 diff = np.sum(np.array(ImageChops.difference(new_img, to_comp_img).getdata()))
-
+                # If images are equal, append to not_valid list
                 if diff == 0:
                     print('Images are equal')
                     not_valid_imags.append(list_of_images[elem])
+        
