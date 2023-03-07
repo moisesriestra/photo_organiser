@@ -16,12 +16,14 @@ class PhotoOrganiser:
 
         # Process the list of images
         valid_imgs = list()
-        not_valid_imags = list()
+        not_valid_imags = dict()
+        global_not_valid = list()
         for i, img_file in enumerate(list_of_images):
-            if img_file in not_valid_imags:
+            if img_file in global_not_valid:
                 # TODO Save to other folder and continue with next image
                 continue
             # This is a valid image to check
+            not_valid_imags[img_file] = list()
             new_img = Image.open(img_file).convert('RGB')
             valid_imgs.append(img_file)
             # TODO Save to common folder
@@ -31,6 +33,8 @@ class PhotoOrganiser:
                 diff = np.sum(np.array(ImageChops.difference(new_img, to_comp_img).getdata()))
                 # If images are equal, append to not_valid list
                 if diff == 0:
-                    print('Images are equal')
-                    not_valid_imags.append(list_of_images[elem])
+                    not_valid_imags[img_file].append(list_of_images[elem])
+                    global_not_valid.append(list_of_images[elem])
+        # Save files with duplicated images
+        self.fs.save_dictionary(self._od, not_valid_imags)
         

@@ -1,4 +1,5 @@
 import os
+import json
 
 class FileService:
 
@@ -21,3 +22,7 @@ class FileService:
                     # TODO add logger to proper error handlin
                     print('File not processed')
         return result_list
+
+    def save_dictionary(self, directory:str, data:dict) -> None:
+        # Serialize data into file:
+        json.dump(data, open(os.path.join(directory, 'duplicates.json'), 'w' ), indent=4)
