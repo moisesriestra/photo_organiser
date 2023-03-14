@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from pyinstaller_setuptools import setup
+from setuptools import find_packages
 
 setup(
     author="Moisés Riestra González",
@@ -9,7 +10,9 @@ setup(
     version='0.1',
     packages=find_packages(),
     install_requires=[
-        'Click',
+        'click==8.1.3',
+        'Pillow==9.4.0',
+        'numpy==1.24.2'
     ],
     entry_points={
         'console_scripts': [
