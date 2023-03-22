@@ -1,6 +1,8 @@
 from photo_organiser.services.file_service import FileService
 from PIL import Image, ImageChops
 import numpy as np
+import os
+from photo_organiser.vos.output_record import OutputRecord
 
 class PhotoOrganiser:
 
@@ -35,6 +37,18 @@ class PhotoOrganiser:
                 if diff == 0:
                     not_valid_imags[img_file].append(list_of_images[elem])
                     global_not_valid.append(list_of_images[elem])
+        
+        out_dict = self._generate_output_dictionary(valid_imgs, not_valid_imags)
         # Save files with duplicated images
-        self.fs.save_dictionary(self._od, not_valid_imags)
+        self.fs.save_dictionary(self._od, out_dict)
+
+    def _generate_output_dictionary(self, imgs: list, duplicates: dict) -> dict:
+        final_dict = dict()
+        
+        for img_file in imgs:
+            record = OutputRecord(img_file, duplicates[img_file])
+            print(vars(record))
+            final_dict[record.name] = vars(record)
+
+        return final_dict
         

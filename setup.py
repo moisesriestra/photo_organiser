@@ -7,7 +7,7 @@ setup(
     python_requires='>=3.6',
     description="This project aimed to be a personal tool for picture self-organization in order to avoid duplicate images.",
     name='photo_organiser',
-    version='0.1',
+    version='0.2',
     packages=find_packages(),
     install_requires=[
         'click==8.1.3',
